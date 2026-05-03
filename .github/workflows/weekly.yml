@@ -2,8 +2,9 @@ name: Weekly Nachrichtenueberblick
 
 on:
   # Wednesday 22:20 UTC = 23:20 Berlin (winter); accepts 1h DST drift in summer.
-  schedule:
-    - cron: "20 22 * * 3"
+  # cron disabled — Claude routine trig_016vzTxKuehNkDoES8jLcxiG handles weekly schedule now
+  # schedule:
+  #   - cron: "20 22 * * 3"
   workflow_dispatch:
 
 jobs:
