@@ -1,0 +1,90 @@
+{
+  "name": "Pau",
+  "week_start": "2026-05-04",
+  "week_end": "2026-05-10",
+  "week_number": 19,
+  "topics": [
+    {
+      "title": "Dobrindts Migrationswende: Bilanz nach einem Jahr",
+      "category": "Inland",
+      "facts": [
+        "Dobrindt führte Zurückweisungen von Asylsuchenden an der Grenze ein – ca....",
+        "Zurückweisungszahlen lagen unter Dobrindt im Schnitt bei 2.000–3.000 pro Monat – ähnlich w...",
+        "Verwaltungsgericht Koblenz erklärte Grenzkontrollen an der Grenze zu Luxemburg für rechtsw...",
+        "Dobrindt nennt Urteile Einzelfälle und kündigt Berufung an",
+        "Migrationswissenschaftlerin Rietig: Nutzen der Kontrollen wissenschaftlich kaum belegbar"
+      ],
+      "relevance": [
+        "Grenzkontrollen innerhalb der EU sind rechtlich umstritten und betreffen Schengen-Regeln",
+        "Migrationspolitik war zentrales Wahlkampfthema der Union 2025",
+        "Gerichtsurteile gegen Kontrollen könnten die Regierungspolitik unter Druck setzen",
+        "Dobrindt plant auch weiterhin Abschiebungen nach Afghanistan – trotz Taliban-Kontakt"
+      ],
+      "position_a": {
+        "actor": "Bundesinnenminister Alexander Dobrindt (CSU)",
+        "statement": "Die Grenzkontrollen und Zurückweisungen sind notwendig, haben die Magnetwirkung Deutschlands reduziert und sollen bis zu einem funktionsfähigen EU-Migrationssystem fortgeführt werd..."
+      },
+      "position_b": {
+        "actor": "Saarlands Ministerpräsidentin Anke Rehlinger (SPD)",
+        "statement": "Grenzkontrollen mitten in Europa schaden mehr als sie nützen und sind aus rechtlicher Sicht problematisch – das zeigen auch aktuelle Gerichtsurteile."
+      },
+      "sources": [
+        {
+          "medium": "Tagesschau",
+          "date": "2026-05-03",
+          "title": "Für Dobrindt eine echte Wende - für andere \"beeindruckende PR\"",
+          "url": "https://www.tagesschau.de/inland/dobrindt-grenzkontrollen-bab-100.html"
+        },
+        {
+          "medium": "ZEIT",
+          "date": "2026-05-03",
+          "title": "Migration: Innenminister Dobrindt will an Grenzkontrollen festhalten",
+          "url": "https://www.zeit.de/politik/deutschland/2026-05/migration-grenzkontrollen-alexander-dobrindt-afghanistan"
+        }
+      ],
+      "open_question": "Wie lange darf Deutschland Binnengrenzkontrollen aufrechterhalten, wenn Gerichte sie wiederholt für rechtswidrig erklären?",
+      "presentation_blurb": "Innenminister Dobrindt zieht nach einem Jahr eine positive Bilanz seiner Migrationspolitik. Gerichte sehen die Grenzkontrollen aber als rechtswidrig an. Ob die Maßnahmen wirklich weniger Migration bewirkt haben, ist wissenschaftlich nicht belegt."
+    },
+    {
+      "title": "Trump zieht Truppen ab – Merz verteidigt seinen Kurs",
+      "category": "International",
+      "facts": [
+        "Trump kündigt Abzug von mindestens 5.000 US-Soldaten aus Deutschland an",
+        "Geplante Stationierung von Tomahawk-Marschflugkörpern in Deutschland wird nicht umgesetzt",
+        "Merz hatte Trumps Iran-Strategie öffentlich kritisiert – Trump reagierte mit scharfen Post...",
+        "Militärexperte Carlo Masala nennt den Wegfall der Mittelstreckenwaffen einen Tiefpunkt im...",
+        "Merz: nuklearee Teilhabe der USA und NATO-Abschreckung bleiben weiterhin bestehen"
+      ],
+      "relevance": [
+        "Weniger US-Truppen und keine neuen Raketen schwächen Deutschlands Abschreckungsfähigkeit",
+        "Spannungen zwischen Berlin und Washington belasten die transatlantische Zusammenarbeit",
+        "Der Vorfall zeigt, wie abhängig Deutschland von US-Sicherheitszusagen ist",
+        "Debatte über Europas eigene Verteidigungsfähigkeit wird neu entfacht"
+      ],
+      "position_a": {
+        "actor": "Bundeskanzler Friedrich Merz (CDU)",
+        "statement": "Es gibt keinen direkten Zusammenhang zwischen seiner Iran-Kritik und Trumps Entscheidungen; er will die Zusammenarbeit mit Trump trotzdem fortsetzen."
+      },
+      "position_b": {
+        "actor": "Grünen-Fraktionsvorsitzende Katharina Dröge",
+        "statement": "Merz hat auf Trumps Druck immer wieder mit Anpassung reagiert – diese Strategie sei jetzt gescheitert; die EU müsse unabhängiger von den USA werden."
+      },
+      "sources": [
+        {
+          "medium": "Tagesschau",
+          "date": "2026-05-03",
+          "title": "\"Ich gebe die Zusammenarbeit mit Trump nicht auf\"",
+          "url": "https://www.tagesschau.de/inland/innenpolitik/merz-koalition-usa-100.html"
+        },
+        {
+          "medium": "Sueddeutsche",
+          "date": "2026-05-03",
+          "title": "US-Truppenabzug: Trumps Zorn trifft Deutschland",
+          "url": "https://www.sueddeutsche.de/politik/berlin-usa-truppenabzug-handelskonflikt-trump-li.3477163"
+        }
+      ],
+      "open_question": "Kann Europa seine Sicherheit langfristig selbst gewährleisten, wenn die USA ihre Truppenpräsenz weiter reduzieren?",
+      "presentation_blurb": "Trump zieht über 5.000 US-Soldaten aus Deutschland ab und stoppt die geplante Lieferung von Tomahawk-Raketen. Auslöser war offenbar Merz' öffentliche Kritik an der US-Strategie im Iran-Krieg. Merz will die Zusammenarbeit mit Washington dennoch fortsetzen."
+    }
+  ]
+}
