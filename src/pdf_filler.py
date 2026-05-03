@@ -3,8 +3,8 @@
 Topic 3 and the personal reflection on page 3 are intentionally left blank.
 
 Usage:
-    python -m src.pdf_filler --static                          # smoke test with hardcoded German content
-    python -m src.pdf_filler --json data.json --out output.pdf # fill with real content
+    python -m src.pdf_filler --static                          # smoke test
+    python -m src.pdf_filler --json data.json --out output.pdf
 """
 from __future__ import annotations
 
@@ -21,8 +21,6 @@ ROOT = Path(__file__).resolve().parents[1]
 TEMPLATE = ROOT / "template" / "vorlage_nachrichten.pdf"
 COORDS = ROOT / "config" / "field_coords.json"
 
-BULLET = "- "  # ASCII so it renders in built-in Helvetica (Latin-1) without the bullet -> ? fallback
-
 # Fields whose rect overlaps printed placeholder text on the template
 # (underlines, "(Medium, Datum)" hint, etc.). We draw a white backdrop first.
 WHITEOUT_FIELDS = {
@@ -35,8 +33,8 @@ def _load_coords() -> dict[str, Any]:
     return json.loads(COORDS.read_text(encoding="utf-8"))
 
 
-def _bullets(items: list[str]) -> str:
-    return "\n".join(f"{BULLET}{s.strip()}" for s in items if s.strip())
+def _join_lines(items: list[str]) -> str:
+    return "\n".join(s.strip() for s in items if s.strip())
 
 
 def _draw_text(
@@ -52,19 +50,17 @@ def _draw_text(
         page.draw_rect(rect, color=None, fill=(1, 1, 1), width=0)
     size = spec.get("font_size", default_size)
     res = page.insert_textbox(
-        rect,
-        text,
+        rect, text,
         fontsize=size,
         fontname=spec.get("font", "helv"),
         color=(0, 0, 0),
         align=fitz.TEXT_ALIGN_LEFT,
     )
     if res < 0:
-        # Negative return = overflow. Shrink and retry once.
+        # Overflow — shrink and retry once.
         page.insert_textbox(
-            rect,
-            text,
-            fontsize=max(size - 1.5, 7.0),
+            rect, text,
+            fontsize=max(size - 1.5, 8.0),
             fontname=spec.get("font", "helv"),
             color=(0, 0, 0),
             align=fitz.TEXT_ALIGN_LEFT,
@@ -72,17 +68,11 @@ def _draw_text(
 
 
 def _check_box(page: fitz.Page, spec: dict[str, Any]) -> None:
+    """Draw an X through the checkbox, matching the example worksheet style."""
     cx, cy = spec["center"]
     r = spec["radius"]
-    page.draw_circle(fitz.Point(cx, cy), r, color=(0, 0, 0), fill=(0, 0, 0), width=0.5)
-
-
-def _format_position(actor: str, statement: str) -> str:
-    return f"{actor.strip()}: {statement.strip()}"
-
-
-def _format_source_meta(source: dict[str, str]) -> str:
-    return f"{source['medium']}, {source['date']} - {source['title']}"
+    page.draw_line(fitz.Point(cx - r, cy - r), fitz.Point(cx + r, cy + r), color=(0, 0, 0), width=1.0)
+    page.draw_line(fitz.Point(cx - r, cy + r), fitz.Point(cx + r, cy - r), color=(0, 0, 0), width=1.0)
 
 
 def _draw_field(page: fitz.Page, spec: dict[str, Any], text: str, *, default_size: float, name: str) -> None:
@@ -112,16 +102,17 @@ def fill_pdf(data: dict[str, Any], out_path: Path) -> Path:
         if cat in cat_specs:
             _check_box(doc[cat_specs[cat]["page"]], cat_specs[cat])
 
-        draw("title",     spec["title"],     topic["title"])
-        draw("facts",     spec["facts"],     _bullets(topic["facts"]))
-        draw("relevance", spec["relevance"], _bullets(topic["relevance"]))
-        draw("position_a", spec["position_a"], _format_position(topic["position_a"]["actor"], topic["position_a"]["statement"]))
-        draw("position_b", spec["position_b"], _format_position(topic["position_b"]["actor"], topic["position_b"]["statement"]))
+        draw("title",      spec["title"],      topic["title"])
+        draw("facts",      spec["facts"],      _join_lines(topic["facts"]))
+        draw("relevance",  spec["relevance"],  topic["relevance"])
+        draw("position_a", spec["position_a"], topic["position_a"])
+        draw("position_b", spec["position_b"], topic["position_b"])
 
+        # Sources: medium name in the meta slot, URL on the line below
         s1, s2 = topic["sources"][0], topic["sources"][1]
-        draw("source1_meta", spec["source1_meta"], _format_source_meta(s1))
+        draw("source1_meta", spec["source1_meta"], s1["medium"])
         draw("source1_url",  spec["source1_url"],  s1["url"])
-        draw("source2_meta", spec["source2_meta"], _format_source_meta(s2))
+        draw("source2_meta", spec["source2_meta"], s2["medium"])
         draw("source2_url",  spec["source2_url"],  s2["url"])
 
         draw("open_question", spec["open_question"], topic["open_question"])
@@ -137,87 +128,49 @@ def _example_data() -> dict[str, Any]:
     monday = today - timedelta(days=today.weekday())
     sunday = monday + timedelta(days=6)
     return {
-        "name": "Pau",
+        "name": "Pau Burmeister",
         "week_start": monday.isoformat(),
         "week_end": sunday.isoformat(),
         "topics": [
             {
-                "title": "Bundesregierung beschliesst neues Klimapaket",
+                "title": "Reform der Krankenkasse",
                 "category": "Inland",
                 "facts": [
-                    "Kabinett hat ein neues Klimapaket beschlossen.",
-                    "Geplant sind hoehere Foerderungen fuer Waermepumpen.",
-                    "Industrie soll bis 2030 zusaetzliche CO2-Vorgaben erfuellen.",
-                    "Das Paket muss noch durch Bundestag und Bundesrat.",
+                    "Die Krankenkassen sollen reformiert werden.",
+                    "Urspruenglich sollten 20 Mrd. eingespart werden, jetzt nur noch 16.",
+                    "Aerzte, Krankenhaeuser und Konsumenten muessen einsparen.",
                 ],
-                "relevance": [
-                    "Betrifft Heizkosten und Industrie in ganz Deutschland.",
-                    "Wichtig fuer das Erreichen der Klimaziele bis 2030.",
-                    "Loest Streit zwischen Koalitionspartnern aus.",
-                ],
-                "position_a": {
-                    "actor": "Bundesregierung",
-                    "statement": "Das Paket sei noetig, um die Klimaziele realistisch zu erreichen.",
-                },
-                "position_b": {
-                    "actor": "Opposition (CDU/CSU)",
-                    "statement": "Die Massnahmen seien zu teuer und belasteten Mittelstand und Familien.",
-                },
+                "relevance": "Weil die Krankenkassen in Deutschland zu wenig Geld haben.",
+                "position_a": "Die Regierung (CDU und SPD) wollen die gesetzliche Krankenversicherung entlasten.",
+                "position_b": "Die Opposition meint, die Reformen belasten die Buerger zu stark und gefaehrden die Versorgung.",
                 "sources": [
-                    {
-                        "medium": "Tagesschau",
-                        "date": "2026-05-04",
-                        "title": "Kabinett beschliesst neues Klimapaket",
-                        "url": "https://www.tagesschau.de/inland/klimapaket-100.html",
-                    },
-                    {
-                        "medium": "ZDF heute",
-                        "date": "2026-05-04",
-                        "title": "Streit um neue Klimaregeln",
-                        "url": "https://www.zdf.de/nachrichten/politik/klimapaket-100.html",
-                    },
+                    {"medium": "Tagesschau", "date": "2026-05-04", "title": "Reform der Krankenkasse",
+                     "url": "https://www.tagesschau.de/inland/krankenkasse-100.html"},
+                    {"medium": "ZDF heute", "date": "2026-05-04", "title": "Streit um Krankenkassen-Reform",
+                     "url": "https://www.zdf.de/nachrichten/wirtschaft/krankenkasse-100.html"},
                 ],
-                "open_question": "Wie genau sollen die hoeheren Foerderungen finanziert werden?",
-                "presentation_blurb": "Die Regierung plant ein neues Klimapaket mit mehr Foerderung fuer Waermepumpen. Die Opposition haelt das fuer zu teuer.",
+                "open_question": "Wie sollen die geplanten Einsparungen konkret finanziert werden?",
+                "presentation_blurb": "Die Regierung plant Kuerzungen bei der Krankenversicherung. Statt 20 Mrd. werden 16 Mrd. eingespart.",
             },
             {
-                "title": "EU-Gipfel zu Migrationspolitik in Bruessel",
-                "category": "International",
+                "title": "Konjunktur Deutschland",
+                "category": "Wirtschaft",
                 "facts": [
-                    "Staats- und Regierungschefs der EU haben in Bruessel getagt.",
-                    "Im Mittelpunkt stand die Reform der gemeinsamen Migrationspolitik.",
-                    "Strittig sind die Verteilung von Gefluechteten und Aussengrenzschutz.",
-                    "Eine Einigung wurde vertagt.",
+                    "Das Bundeswirtschaftsministerium hat die Konjunkturprognose halbiert.",
+                    "Das geschaetzte Wachstum liegt nur noch bei rund 0,5 Prozent.",
+                    "Hauptgrund ist laut Ministerin Reiche der Krieg im Iran.",
                 ],
-                "relevance": [
-                    "Migration ist eines der wichtigsten politischen Themen in Europa.",
-                    "Beeinflusst Wahlen in mehreren EU-Laendern.",
-                    "Zeigt, wie schwer EU-Staaten gemeinsame Loesungen finden.",
-                ],
-                "position_a": {
-                    "actor": "EU-Kommission",
-                    "statement": "Es brauche eine solidarische Verteilung und gemeinsame Standards.",
-                },
-                "position_b": {
-                    "actor": "Mehrere osteuropaeische Regierungen",
-                    "statement": "Sie lehnen verpflichtende Aufnahmequoten ab.",
-                },
+                "relevance": "Weniger Wirtschaftsleistung bedeutet mehr Druck fuer die Politik und die Wirtschaft.",
+                "position_a": "Die CDU verweist auf externe Geschehnisse wie den Iran-Krieg und will keine neuen Schulden aufnehmen.",
+                "position_b": "Die SPD fordert staerkere Regulierung und Entlastungsprogramme fuer die Verbraucher.",
                 "sources": [
-                    {
-                        "medium": "Tagesschau",
-                        "date": "2026-05-03",
-                        "title": "EU-Gipfel zu Migration ohne Einigung",
-                        "url": "https://www.tagesschau.de/ausland/europa/eu-gipfel-migration-100.html",
-                    },
-                    {
-                        "medium": "Deutschlandfunk",
-                        "date": "2026-05-03",
-                        "title": "EU streitet weiter ueber Migration",
-                        "url": "https://www.deutschlandfunk.de/eu-migrationspolitik-100.html",
-                    },
+                    {"medium": "Tagesschau", "date": "2026-05-03", "title": "Konjunkturprognose halbiert",
+                     "url": "https://www.tagesschau.de/wirtschaft/konjunktur-100.html"},
+                    {"medium": "Deutschlandfunk", "date": "2026-05-03", "title": "Bundesregierung halbiert Konjunkturprognose",
+                     "url": "https://www.deutschlandfunk.de/bundesregierung-halbiert-konjunkturprognose-110.html"},
                 ],
-                "open_question": "Welche Position vertritt Deutschland konkret bei der Verteilungsfrage?",
-                "presentation_blurb": "Beim EU-Gipfel ging es um eine Reform der Migrationspolitik. Streitpunkt ist die Verteilung von Gefluechteten zwischen den Mitgliedsstaaten.",
+                "open_question": "Welche konkreten Entlastungsprogramme schlaegt die SPD vor?",
+                "presentation_blurb": "Die Konjunkturprognose wurde halbiert. CDU sieht externe Gruende, SPD will mehr Entlastung.",
             },
         ],
     }
@@ -225,9 +178,9 @@ def _example_data() -> dict[str, Any]:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--static", action="store_true", help="Fill with built-in example data.")
-    parser.add_argument("--json", type=Path, help="Path to JSON file with worksheet data.")
-    parser.add_argument("--out",  type=Path, default=ROOT / "tests" / "output_static.pdf")
+    parser.add_argument("--static", action="store_true")
+    parser.add_argument("--json",   type=Path)
+    parser.add_argument("--out",    type=Path, default=ROOT / "tests" / "output_static.pdf")
     args = parser.parse_args()
 
     if args.static:
