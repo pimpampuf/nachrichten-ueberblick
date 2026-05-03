@@ -1,0 +1,8 @@
+.env
+.env.local
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+tests/output_*.pdf
