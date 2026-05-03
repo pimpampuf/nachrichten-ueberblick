@@ -21,12 +21,10 @@ ROOT = Path(__file__).resolve().parents[1]
 TEMPLATE = ROOT / "template" / "vorlage_nachrichten.pdf"
 COORDS = ROOT / "config" / "field_coords.json"
 
-# Fields whose rect overlaps printed placeholder text on the template
-# (underlines, "(Medium, Datum)" hint, etc.). We draw a white backdrop first.
-WHITEOUT_FIELDS = {
-    "name", "week_start", "week_end",
-    "title", "source1_meta", "source1_url", "source2_meta", "source2_url",
-}
+# Whiteout disabled by user request: the printed underlines and "(Medium, Datum)"
+# placeholders stay visible — text is written on top of them, matching the look
+# of a handwritten/typed worksheet.
+WHITEOUT_FIELDS: set[str] = set()
 
 
 def _load_coords() -> dict[str, Any]:
