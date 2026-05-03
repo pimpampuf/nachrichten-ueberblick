@@ -5,17 +5,17 @@
   "week_number": 19,
   "topics": [
     {
-      "title": "Dobrindts Migrationswende: Bilanz nach einem Jahr",
+      "title": "Dobrindt und die Grenzkontrollen: Wende oder PR?",
       "category": "Inland",
       "facts": [
-        "Innenminister Dobrindt (CSU) hat seit Amtsantritt Asylsuchende an der Grenze zurückgewiesen.",
-        "Bis Ende April 2026 wurden etwa 1.340 Personen auf diese Weise abgewiesen.",
+        "Innenminister Dobrindt hält trotz gesunkener Migrationszahlen an Grenzkontrollen fest.",
+        "Seit seinem Amtsantritt wurden etwa 1.340 Asylsuchende an der Grenze zurückgewiesen.",
         "Das Verwaltungsgericht Koblenz erklärte Grenzkontrollen an der Luxemburg-Grenze für rechtswidrig.",
-        "Dobrindt will trotz gesunkener Migrationszahlen an den Kontrollen festhalten."
+        "Migrationswissenschaftlerin Rietig sagt, der Nutzen der Kontrollen sei wissenschaftlich kaum belegbar."
       ],
-      "relevance": "Weil die Grenzkontrollen rechtlich umstritten sind und alle Reisenden an deutschen Grenzen betreffen.",
-      "position_a": "Innenminister Dobrindt (CSU) sieht die Grenzkontrollen als Erfolg und will sie fortsetzen, bis das europäische Migrationssystem besser funktioniert.",
-      "position_b": "Die saarländische Ministerpräsidentin Rehlinger (SPD) meint, die Grenzkontrollen schadeten mehr als sie helfen, und sieht sie auch rechtlich kritisch.",
+      "relevance": "Weil die Grenzkontrollen rechtlich umstritten sind und viele Menschen direkt betreffen, die nach Deutschland einreisen wollen.",
+      "position_a": "Innenminister Dobrindt (CSU) sieht die Grenzkontrollen als Erfolg und will sie beibehalten, bis das europäische Migrationssystem funktioniert.",
+      "position_b": "Die saarländische Ministerpräsidentin Rehlinger (SPD) meint, die Kontrollen schaden mehr als sie nützen und seien rechtlich fragwürdig.",
       "sources": [
         {
           "medium": "Tagesschau",
@@ -30,21 +30,21 @@
           "url": "https://www.zeit.de/politik/deutschland/2026-05/migration-grenzkontrollen-alexander-dobrindt-afghanistan"
         }
       ],
-      "open_question": "Darf die Bundesregierung Gerichtsurteile zu den Grenzkontrollen einfach ignorieren?",
-      "presentation_blurb": "Bundesinnenminister Dobrindt zieht nach einem Jahr eine positive Bilanz seiner Migrationspolitik. Er will die Grenzkontrollen trotz sinkender Migrationszahlen beibehalten. Gerichte haben diese Kontrollen aber bereits mehrfach für rechtswidrig erklärt."
+      "open_question": "Dürfen Asylsuchende überhaupt dauerhaft an der Grenze zurückgewiesen werden, wenn Gerichte das für rechtswidrig erklären?",
+      "presentation_blurb": "Bundesinnenminister Dobrindt hält trotz sinkender Migrationszahlen an Grenzkontrollen fest und nennt das eine Migrationswende. Gerichte haben die Kontrollen aber teils für rechtswidrig erklärt. Wissenschaftler zweifeln zudem daran, ob die Maßnahmen wirklich etwas bewirken."
     },
     {
-      "title": "Trump zieht Truppen ab und streitet mit Merz",
+      "title": "Trump zieht Truppen ab – Merz gibt Zusammenarbeit nicht auf",
       "category": "International",
       "facts": [
         "Trump will mindestens 5.000 US-Soldaten aus Deutschland abziehen.",
         "Die geplante Stationierung von Tomahawk-Marschflugkörpern in Deutschland ist vorerst abgesagt.",
-        "Auslöser war wohl Merz' öffentliche Kritik an der US-Strategie im Iran-Krieg.",
-        "Militärexperten nennen den Verzicht auf die Mittelstreckenwaffen einen Tiefpunkt im deutsch-amerikanischen Verhältnis."
+        "Merz hatte Trumps Iran-Strategie öffentlich kritisiert – das soll Trump verärgert haben.",
+        "Militärexperte Masala nennt den Verzicht auf die Mittelstreckenwaffen einen Tiefpunkt im Verhältnis."
       ],
-      "relevance": "Das betrifft die Sicherheit Deutschlands, weil weniger US-Truppen und keine neuen Raketen die Abschreckung gegenüber Russland schwächen könnten.",
-      "position_a": "Kanzler Merz (CDU) bestreitet einen direkten Zusammenhang zwischen seiner Iran-Kritik und Trumps Ankündigungen und will die Zusammenarbeit mit den USA fortsetzen.",
-      "position_b": "Grünen-Fraktionschefin Dröge kritisiert, Merz habe Trump gegenüber immer wieder nachgegeben, und erklärt diese Strategie für gescheitert.",
+      "relevance": "Das betrifft Deutschlands Sicherheit direkt, weil weniger US-Truppen und keine neuen Raketen die Abschreckung gegenüber Russland schwächen könnten.",
+      "position_a": "Kanzler Merz (CDU) betont, er gebe die Zusammenarbeit mit Trump nicht auf und sieht den Truppenabzug als nicht wirklich neu an.",
+      "position_b": "Grünen-Fraktionschefin Dröge kritisiert, Merz habe Trump gegenüber immer nur beschwichtigt – diese Strategie sei nun gescheitert.",
       "sources": [
         {
           "medium": "Tagesschau",
@@ -59,8 +59,8 @@
           "url": "https://www.sueddeutsche.de/politik/berlin-usa-truppenabzug-handelskonflikt-trump-li.3477163"
         }
       ],
-      "open_question": "Kann Deutschland seine Sicherheit langfristig ohne US-Truppen und US-Raketen gewährleisten?",
-      "presentation_blurb": "US-Präsident Trump will mehr als 5.000 Soldaten aus Deutschland abziehen und die Lieferung von Tomahawk-Raketen absagen. Auslöser war offenbar Kanzler Merz' Kritik an der US-Kriegsführung im Iran. Merz will die Zusammenarbeit mit den USA trotzdem nicht aufgeben."
+      "open_question": "Kann Deutschland seine Sicherheit ohne US-Mittelstreckenraketen und mit weniger amerikanischen Soldaten noch garantieren?",
+      "presentation_blurb": "Trump zieht mindestens 5.000 Soldaten aus Deutschland ab und hat die Stationierung von Tomahawk-Raketen abgesagt. Viele sehen das als Reaktion auf Kritik von Kanzler Merz an Trumps Iran-Politik. Merz sagt trotzdem, er wolle die Zusammenarbeit mit den USA nicht aufgeben."
     }
   ]
 }
