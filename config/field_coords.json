@@ -1,0 +1,54 @@
+{
+  "_doc": "Coordinates in PDF user-space points (origin top-left, A4 = 595.3 x 841.9). page = 0-indexed. Each field rect is [x0, y0, x1, y1].",
+  "page_size": [595.3, 841.9],
+  "default_font": "helv",
+  "default_font_size": 10,
+  "header": {
+    "name":       { "page": 0, "rect": [92,  98, 260, 116], "font_size": 11 },
+    "week_start": { "page": 0, "rect": [128, 130, 200, 148], "font_size": 11 },
+    "week_end":   { "page": 0, "rect": [222, 130, 295, 148], "font_size": 11 }
+  },
+  "category_checkboxes": {
+    "_doc": "Each entry is the center (cx, cy) and radius for a small filled circle drawn over the empty box.",
+    "topic1": {
+      "Inland":        { "page": 0, "center": [119, 615], "radius": 3 },
+      "International": { "page": 0, "center": [165, 615], "radius": 3 },
+      "Wirtschaft":    { "page": 0, "center": [241, 615], "radius": 3 },
+      "Gesellschaft":  { "page": 0, "center": [306, 615], "radius": 3 },
+      "Umwelt":        { "page": 0, "center": [381, 615], "radius": 3 },
+      "Sonstiges":     { "page": 0, "center": [434, 615], "radius": 3 }
+    },
+    "topic2": {
+      "Inland":        { "page": 1, "center": [119, 456], "radius": 3 },
+      "International": { "page": 1, "center": [165, 456], "radius": 3 },
+      "Wirtschaft":    { "page": 1, "center": [241, 456], "radius": 3 },
+      "Gesellschaft":  { "page": 1, "center": [306, 456], "radius": 3 },
+      "Umwelt":        { "page": 1, "center": [381, 456], "radius": 3 },
+      "Sonstiges":     { "page": 1, "center": [434, 456], "radius": 3 }
+    }
+  },
+  "topic1": {
+    "title":          { "page": 0, "rect": [125, 583, 540, 602], "font_size": 11 },
+    "facts":          { "page": 0, "rect": [60,  655, 540, 745], "font_size": 9.5,  "max_chars": 480 },
+    "relevance":      { "page": 0, "rect": [60,  765, 540, 838], "font_size": 9.5,  "max_chars": 360 },
+    "position_a":     { "page": 1, "rect": [60,  120, 540, 165], "font_size": 9.5,  "max_chars": 280 },
+    "position_b":     { "page": 1, "rect": [60,  185, 540, 235], "font_size": 9.5,  "max_chars": 280 },
+    "source1_meta":   { "page": 1, "rect": [129, 257, 374, 274], "font_size": 9 },
+    "source1_url":    { "page": 1, "rect": [92,  273, 540, 290], "font_size": 8 },
+    "source2_meta":   { "page": 1, "rect": [129, 289, 374, 306], "font_size": 9 },
+    "source2_url":    { "page": 1, "rect": [92,  305, 540, 322], "font_size": 8 },
+    "open_question":  { "page": 1, "rect": [60,  354, 540, 422], "font_size": 9.5,  "max_chars": 240 }
+  },
+  "topic2": {
+    "title":          { "page": 1, "rect": [125, 424, 540, 443], "font_size": 11 },
+    "facts":          { "page": 1, "rect": [60,  496, 540, 585], "font_size": 9.5,  "max_chars": 480 },
+    "relevance":      { "page": 1, "rect": [60,  605, 540, 655], "font_size": 9.5,  "max_chars": 280 },
+    "position_a":     { "page": 1, "rect": [60,  693, 540, 740], "font_size": 9.5,  "max_chars": 280 },
+    "position_b":     { "page": 1, "rect": [60,  759, 540, 838], "font_size": 9.5,  "max_chars": 280 },
+    "source1_meta":   { "page": 2, "rect": [129, 100, 374, 117], "font_size": 9 },
+    "source1_url":    { "page": 2, "rect": [92,  117, 540, 134], "font_size": 8 },
+    "source2_meta":   { "page": 2, "rect": [129, 132, 374, 149], "font_size": 9 },
+    "source2_url":    { "page": 2, "rect": [92,  148, 540, 165], "font_size": 8 },
+    "open_question":  { "page": 2, "rect": [60,  198, 540, 265], "font_size": 9.5,  "max_chars": 240 }
+  }
+}

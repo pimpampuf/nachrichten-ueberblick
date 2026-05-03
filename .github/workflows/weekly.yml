@@ -1,0 +1,50 @@
+name: Weekly Nachrichtenueberblick
+
+on:
+  # Wednesday 22:20 UTC = 23:20 Berlin (winter); accepts 1h DST drift in summer.
+  schedule:
+    - cron: "20 22 * * 3"
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      N8N_WEBHOOK_URL:   ${{ secrets.N8N_WEBHOOK_URL }}
+      STUDENT_NAME:      Pau
+      PDF_URL_TEMPLATE:  "https://raw.githubusercontent.com/${{ github.repository }}/main/output/{date}.pdf"
+      TZ:                Europe/Berlin
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Build worksheet + PDF
+        run: python -m src.main build
+
+      - name: Commit and push PDF
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name  "weekly-bot"
+          git add output/
+          if git diff --cached --quiet; then
+            echo "no changes to commit"
+            exit 0
+          fi
+          git commit -m "weekly: $(date +%Y-%m-%d)"
+          git push
+
+      - name: Wait for raw.githubusercontent CDN to catch up
+        run: sleep 30
+
+      - name: Notify n8n
+        run: python -m src.main notify

@@ -1,0 +1,32 @@
+[
+  {
+    "tagesschau": {
+      "title": "Bundesregierung beschliesst neues Klimapaket",
+      "date": "2026-05-04",
+      "url": "https://www.tagesschau.de/inland/klimapaket-100.html",
+      "text": "Die Bundesregierung hat ein neues Klimapaket beschlossen. Es enthaelt hoehere Foerderungen fuer Waermepumpen und neue CO2-Vorgaben fuer die Industrie bis 2030. Die Opposition kritisiert die Kosten. Das Paket muss noch durch Bundestag und Bundesrat. Wirtschaftsverbaende warnen vor zusaetzlichen Belastungen, Umweltverbaende halten die Massnahmen fuer ueberfaellig. Die Regierung verteidigt die Plaene als notwendig fuer das Erreichen der Klimaziele."
+    },
+    "second": {
+      "medium": "ZDF heute",
+      "title": "Streit um neue Klimaregeln im Bundestag",
+      "date": "2026-05-04",
+      "url": "https://www.zdf.de/nachrichten/politik/klimapaket-100.html",
+      "text": "Im Bundestag gibt es Streit ueber das Klimapaket. CDU/CSU werfen der Regierung vor, mit den hoeheren Foerderungen den Mittelstand und Familien zu belasten. SPD und Gruene halten dagegen, dass die Massnahmen gerecht ueber Steuern finanziert werden. Wirtschaftsverbaende sehen die Industrie unter Druck."
+    }
+  },
+  {
+    "tagesschau": {
+      "title": "EU-Gipfel zu Migration ohne Einigung",
+      "date": "2026-05-03",
+      "url": "https://www.tagesschau.de/ausland/europa/eu-gipfel-migration-100.html",
+      "text": "Beim EU-Gipfel in Bruessel haben die Staats- und Regierungschefs ueber eine Reform der gemeinsamen Migrationspolitik beraten. Strittig waren die Verteilung von Gefluechteten und der Schutz der EU-Aussengrenzen. Eine Einigung wurde vertagt. Mehrere osteuropaeische Laender lehnen verpflichtende Aufnahmequoten ab. Die EU-Kommission verlangt eine solidarische Verteilung. Deutschland und Frankreich draengen auf eine schnelle Loesung."
+    },
+    "second": {
+      "medium": "Deutschlandfunk",
+      "title": "EU streitet weiter ueber Migrationspolitik",
+      "date": "2026-05-03",
+      "url": "https://www.deutschlandfunk.de/eu-migrationspolitik-100.html",
+      "text": "Die EU bleibt in der Migrationsfrage gespalten. Polen und Ungarn lehnen jede Form von Quoten ab und verweisen auf nationale Souveraenitaet. Die EU-Kommission haelt eine Reform fuer dringend notwendig. NGOs kritisieren die Haerte des geplanten Aussengrenzschutzes."
+    }
+  }
+]
