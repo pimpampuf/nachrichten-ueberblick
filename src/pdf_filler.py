@@ -113,7 +113,7 @@ def fill_pdf(data: dict[str, Any], out_path: Path) -> Path:
         draw("source2_meta", spec["source2_meta"], s2["medium"])
         draw("source2_url",  spec["source2_url"],  s2["url"])
 
-        draw("open_question", spec["open_question"], topic["open_question"])
+        # 'Offene Fragen' is intentionally left blank — Pau fills it by hand.
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     doc.save(out_path, deflate=True)
