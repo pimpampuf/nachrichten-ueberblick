@@ -30,10 +30,12 @@ from config.prompts import BANNED_PHRASES, SYSTEM_PROMPT, USER_PROMPT_TEMPLATE  
 MODEL = "claude-sonnet-4-6"
 MAX_TOKENS = 4000
 
-# Per-field hard caps (mirror the prompt; we enforce them in code regardless).
+# Per-field hard caps. The fact cap fits two PDF lines at 11pt; if a sentence
+# would still need truncation, _enforce_caps drops it entirely rather than
+# rendering a broken-looking fragment.
 MAX_CHARS = {
     "title":              60,
-    "facts_item":         95,
+    "facts_item":         140,
     "relevance":          160,
     "position":           200,
     "open_question":      140,
@@ -81,7 +83,12 @@ def _truncate_at_word(text: str, max_chars: int) -> str:
 
 def _enforce_caps(topic: dict[str, Any]) -> dict[str, Any]:
     topic["title"] = _truncate_at_word(topic["title"], MAX_CHARS["title"]).rstrip(".")
-    topic["facts"] = [_truncate_at_word(f, MAX_CHARS["facts_item"]) for f in topic["facts"]]
+    # Drop facts that would need truncation rather than render a broken sentence.
+    # Pydantic schema requires >= 2 facts; if filtering goes below that, keep all
+    # originals (PDF will just visually overflow, which is more honest than
+    # silently presenting Pau with a broken sentence in class).
+    kept = [f.strip() for f in topic["facts"] if len(f.strip()) <= MAX_CHARS["facts_item"]]
+    topic["facts"] = kept if len(kept) >= 2 else [f.strip() for f in topic["facts"]]
     topic["relevance"]          = _truncate_at_word(topic["relevance"],          MAX_CHARS["relevance"])
     topic["position_a"]         = _truncate_at_word(topic["position_a"],         MAX_CHARS["position"])
     topic["position_b"]         = _truncate_at_word(topic["position_b"],         MAX_CHARS["position"])
