@@ -20,7 +20,10 @@ FORMATVORGABEN (sehr wichtig):
 
 - title: max. 60 Zeichen, kein Punkt am Ende.
 
-- facts: 2-4 KURZE einzelne Saetze. Jeder Satz max. 95 Zeichen. Jeder Satz endet mit einem Punkt.
+- facts: 2-4 KURZE einzelne Saetze. Jeder Satz MUSS unter 130 Zeichen bleiben (einschließlich
+  Leerzeichen und Satzzeichen). Schreibe lieber kuerzer als laenger - 50-90 Zeichen sind ideal.
+  Lange Satzgefuege mit Komma-Aufzaehlungen aufteilen in zwei separate Saetze.
+  Jeder Satz endet mit einem Punkt.
   Beispiel:
     "Die Krankenkassen sollen reformiert werden."
     "Urspruenglich sollten 20 Mrd. eingespart werden, jetzt nur noch 16."
