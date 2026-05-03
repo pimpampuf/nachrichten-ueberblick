@@ -32,18 +32,13 @@ MAX_TOKENS = 4000
 
 # Per-field hard caps (mirror the prompt; we enforce them in code regardless).
 MAX_CHARS = {
-    "title": 70,
-    "facts_item": 90,
-    "relevance_item": 90,
-    "statement": 180,
-    "open_question": 140,
+    "title":              60,
+    "facts_item":         95,
+    "relevance":          160,
+    "position":           200,
+    "open_question":      140,
     "presentation_blurb": 280,
 }
-
-
-class Position(BaseModel):
-    actor: str = Field(description="Wer? z.B. 'Bundesregierung', 'EU-Kommission', 'Greenpeace'.")
-    statement: str = Field(description="Was sagt diese Seite? Ein Satz.")
 
 
 class Source(BaseModel):
@@ -56,10 +51,10 @@ class Source(BaseModel):
 class Topic(BaseModel):
     title: str
     category: str  # one of the six categories
-    facts: list[str] = Field(min_length=3, max_length=5)
-    relevance: list[str] = Field(min_length=2, max_length=4)
-    position_a: Position
-    position_b: Position
+    facts: list[str] = Field(min_length=2, max_length=4)
+    relevance: str
+    position_a: str
+    position_b: str
     sources: list[Source] = Field(min_length=2, max_length=2)
     open_question: str
     presentation_blurb: str
@@ -69,26 +64,29 @@ class Worksheet(BaseModel):
     topics: list[Topic] = Field(min_length=2, max_length=2)
 
 
-def _truncate_at_sentence(text: str, max_chars: int) -> str:
+def _truncate_at_word(text: str, max_chars: int) -> str:
+    """Truncate at the last whole word boundary; no ellipsis. Preserves trailing punctuation."""
     text = text.strip()
     if len(text) <= max_chars:
         return text
     cut = text[:max_chars]
-    for sep in (". ", "! ", "? ", "; ", ", "):
-        idx = cut.rfind(sep)
-        if idx >= max_chars * 0.5:
-            return cut[: idx + 1].rstrip() + "..."
-    return cut.rstrip() + "..."
+    space = cut.rfind(" ")
+    if space > max_chars * 0.5:
+        cut = cut[:space]
+    cut = cut.rstrip(",;:")
+    if cut and cut[-1] not in ".!?":
+        cut += "."
+    return cut
 
 
 def _enforce_caps(topic: dict[str, Any]) -> dict[str, Any]:
-    topic["title"] = _truncate_at_sentence(topic["title"], MAX_CHARS["title"])
-    topic["facts"] = [_truncate_at_sentence(f, MAX_CHARS["facts_item"]) for f in topic["facts"]]
-    topic["relevance"] = [_truncate_at_sentence(r, MAX_CHARS["relevance_item"]) for r in topic["relevance"]]
-    for pos in ("position_a", "position_b"):
-        topic[pos]["statement"] = _truncate_at_sentence(topic[pos]["statement"], MAX_CHARS["statement"])
-    topic["open_question"] = _truncate_at_sentence(topic["open_question"], MAX_CHARS["open_question"])
-    topic["presentation_blurb"] = _truncate_at_sentence(topic["presentation_blurb"], MAX_CHARS["presentation_blurb"])
+    topic["title"] = _truncate_at_word(topic["title"], MAX_CHARS["title"]).rstrip(".")
+    topic["facts"] = [_truncate_at_word(f, MAX_CHARS["facts_item"]) for f in topic["facts"]]
+    topic["relevance"]          = _truncate_at_word(topic["relevance"],          MAX_CHARS["relevance"])
+    topic["position_a"]         = _truncate_at_word(topic["position_a"],         MAX_CHARS["position"])
+    topic["position_b"]         = _truncate_at_word(topic["position_b"],         MAX_CHARS["position"])
+    topic["open_question"]      = _truncate_at_word(topic["open_question"],      MAX_CHARS["open_question"])
+    topic["presentation_blurb"] = _truncate_at_word(topic["presentation_blurb"], MAX_CHARS["presentation_blurb"])
     return topic
 
 
@@ -153,7 +151,6 @@ def generate_worksheet(
 
     worksheet = _attempt_generation(client, user_prompt)
 
-    # Re-pass once if any banned phrase slipped through.
     flat = json.dumps(worksheet.model_dump(), ensure_ascii=False)
     bad = _check_banned(flat)
     if bad:
@@ -169,8 +166,8 @@ def generate_worksheet(
         "week_number": monday.isocalendar().week,
         "topics": [_enforce_caps(t.model_dump()) for t in worksheet.topics],
     }
-    # Force the source URLs and dates to match the input articles exactly
-    # (defensive: if the model rewrote a URL we restore the originals).
+    # Pin source URLs and dates back to the input articles (defensive: if the model
+    # rewrote a URL, restore the originals).
     for idx, art in enumerate(articles):
         src1 = out["topics"][idx]["sources"][0]
         src2 = out["topics"][idx]["sources"][1]
@@ -185,8 +182,7 @@ def generate_worksheet(
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--mock-articles", type=Path, required=True,
-                        help="Path to JSON file with two article pairs (see fixture).")
+    parser.add_argument("--mock-articles", type=Path, required=True)
     parser.add_argument("--out", type=Path, default=ROOT / "tests" / "generated_content.json")
     parser.add_argument("--name", default=os.environ.get("STUDENT_NAME", "Pau"))
     args = parser.parse_args()
